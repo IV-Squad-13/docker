@@ -16,9 +16,10 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 # Raiz/
 # ├── docker/
 # │   └── dockerfiles/
-# │       └── jdk21-distroless/
+# │       └── jdk21-distroless-mvn/
+# │       |   └── Dockerfile
+# │       └── jdk21-distroless-gradle/
 # │           └── Dockerfile
 # └── services/
 #     └── jdk21-service/
-#         ├── pom.xml
 #         └── src/
