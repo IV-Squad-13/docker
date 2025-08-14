@@ -1,0 +1,56 @@
+# Caminho do dockerfile
+# docker/dockerfiles/{image_folder}/Dockerfile
+
+services:
+  discovery:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/jdk21-distroless-gradle/Dockerfile
+      args:
+        SERVICE_NAME: discovery
+    ports:
+      - "12999:12999"
+    environment:
+      - SERVER_PORT=12999
+      - EUREKA_HOSTNAME=discovery
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/jdk21-distroless-gradle/Dockerfile
+      args:
+        SERVICE_NAME: gateway
+    ports:
+      - "13000:13000"
+    environment:
+      - SERVER_PORT=13000
+      - EUREKA_HOST=http://discovery:12999/eureka/
+#     - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:5173 | Não testado
+    depends_on:
+      - discovery
+
+  sample_pgdb:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: sample
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  pg_data:
+  rabbitmq_data:
