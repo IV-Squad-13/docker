@@ -1,4 +1,4 @@
-FROM gradle:jdk-21-and-22-alpine AS build
+FROM gradle:8.3-jdk21 AS build
 ARG SERVICE_NAME
 WORKDIR /app
 COPY services/${SERVICE_NAME}/ . 
@@ -15,9 +15,10 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 # Raiz/
 # ├── docker/
 # │   └── dockerfiles/
-# │       └── jdk21-distroless/
+# │       └── jdk21-distroless-mvn/
+# │       |   └── Dockerfile
+# │       └── jdk21-distroless-gradle/
 # │           └── Dockerfile
 # └── services/
 #     └── jdk21-service/
-#         ├── pom.xml
 #         └── src/

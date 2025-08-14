@@ -3,11 +3,12 @@
 
 services:
   discovery:
-    build:
-      context: ..
-      dockerfile: docker/dockerfiles/jdk21-distroless-gradle/Dockerfile
-      args:
-        SERVICE_NAME: discovery
+    image: yuri000/squad13:discovery
+    # build:
+    #   context: ..
+    #   dockerfile: docker/dockerfiles/jdk21-distroless-gradle/Dockerfile
+    #   args:
+    #     SERVICE_NAME: discovery
     ports:
       - "12999:12999"
     environment:
@@ -15,11 +16,12 @@ services:
       - EUREKA_HOSTNAME=discovery
 
   gateway:
-    build:
-      context: ..
-      dockerfile: docker/dockerfiles/jdk21-distroless-gradle/Dockerfile
-      args:
-        SERVICE_NAME: gateway
+    image: yuri000/squad13:gateway
+    # build:
+    #   context: ..
+    #   dockerfile: docker/dockerfiles/jdk21-distroless-gradle/Dockerfile
+    #   args:
+    #     SERVICE_NAME: gateway
     ports:
       - "13000:13000"
     environment:
