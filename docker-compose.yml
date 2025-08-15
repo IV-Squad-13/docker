@@ -27,7 +27,7 @@ services:
     environment:
       - SERVER_PORT=13000
       - EUREKA_HOST=http://discovery:12999/eureka/
-#     - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:5173 | Não testado
+    # - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:5173 | Não testado
     depends_on:
       - discovery
 
