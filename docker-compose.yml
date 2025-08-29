@@ -31,12 +31,26 @@ services:
   #   depends_on:
   #     - discovery
 
+  client:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/react_vite_client/Dockerfile
+      args:
+        CLIENT_PATH: /front/FrontEnd-JotaNunes
+    ports:
+      - "13999:80"
+    volumes:
+      - ./logs/nginx-logs:/var/log/nginx
+
   monolito_db:
-    image: postgres:latest
+    image: postgres:16
+    container_name: monolito_db
+    restart: always
     environment:
       POSTGRES_DB: monolito
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
     volumes:
