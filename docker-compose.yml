@@ -56,6 +56,20 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: monolito
+    volumes:
+      - mongo_data:/data/db
+
+
   # rabbitmq:
   #   image: rabbitmq:latest
   #   ports:
@@ -69,4 +83,5 @@ services:
 
 volumes:
   pg_data:
+  mongo_data:
   # rabbitmq_data:
