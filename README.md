@@ -11,5 +11,5 @@ docker pull yuri000/squad13:discovery
 
 - [Gateway](https://hub.docker.com/repository/docker/yuri000/squad-13/tags/gateway/sha256:2c7535eff6ddf7b5785fdb4a1d867fef771d7e8a8857ddc7e0f59dedb4a83bbe)
 ```
-docker pull yuri000/squad13:gatway
+docker pull yuri000/squad13:gateway
 ```
