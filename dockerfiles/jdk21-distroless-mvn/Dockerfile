@@ -6,7 +6,9 @@ COPY services/${SERVICE_NAME}/src ./src
 RUN mvn clean package -DskipTests
 
 FROM gcr.io/distroless/java21-debian12
+ARG SERVICE_NAME
 COPY --from=build /app/target/*.jar app.jar
+COPY services/${SERVICE_NAME}/.env.properties .env.properties
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 # Execute na raiz do projeto

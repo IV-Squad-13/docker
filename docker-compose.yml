@@ -39,6 +39,20 @@ services:
 #    volumes:
 #      - ./logs/nginx-logs:/var/log/nginx
 
+ 
+  monolito_api:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/jdk21-distroless-mvn/Dockerfile
+      args:
+        SERVICE_NAME: api-monolito
+    ports:
+      - "13000:13000"
+    volumes:
+      - ./services/api-monolito/.env.properties:/app/.env.properties
+    environment:
+      - SERVER_PORT=13000
+
   monolito_db:
     image: postgres:16
     container_name: monolito_db
