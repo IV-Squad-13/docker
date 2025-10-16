@@ -1,11 +1,14 @@
 FROM gradle:8.3-jdk21 AS build
 ARG SERVICE_NAME
+ARG PORT
 WORKDIR /app
 COPY services/${SERVICE_NAME}/ . 
 RUN gradle clean build -x test
 
 FROM gcr.io/distroless/java21-debian12
 COPY --from=build /app/build/libs/*.jar app.jar
+
+EXPOSE ${PORT}
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 # Execute na raiz do projeto
