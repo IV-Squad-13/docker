@@ -46,12 +46,18 @@ services:
       dockerfile: docker/dockerfiles/jdk21-distroless-mvn/Dockerfile
       args:
         SERVICE_NAME: api-monolito
+        PORT: 13000
+    container_name: monolito_api
+    depends_on:
+      - monolito_db
     ports:
       - "13000:13000"
-    volumes:
-      - ./services/api-monolito/.env.properties:/app/.env.properties
     environment:
-      - SERVER_PORT=13000
+      SPRING_DATASOURCE_URL: jdbc:postgresql://monolito_db:5432/monolito
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SERVER_PORT: 13000
+      SPRING_PROFILES_ACTIVE: docker
 
   monolito_db:
     image: postgres:16
