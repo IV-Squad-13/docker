@@ -16,7 +16,6 @@ ENV SERVER_PORT=${PORT}
 
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-COPY services/${SERVICE_NAME}/.env.properties .env.properties
 
 EXPOSE ${PORT}
 
