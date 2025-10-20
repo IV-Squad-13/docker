@@ -1,12 +1,16 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS build
-
-ARG SERVICE_NAME
 WORKDIR /app
 
-COPY services/${SERVICE_NAME}/pom.xml .
-COPY services/${SERVICE_NAME}/src ./src
+COPY pom.xml .
+COPY src ./src
 
 RUN mvn clean package -DskipTests
+
+FROM gcr.io/distroless/java21-debian12:latest
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
 
 FROM gcr.io/distroless/java21-debian12
 
