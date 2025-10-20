@@ -53,9 +53,9 @@ services:
     ports:
       - "13000:13000"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://monolito_db:5432/monolito
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      POSTGRES_URL: jdbc:postgresql://ep-gentle-queen-acl8zuhb-pooler.sa-east-1.aws.neon.tech/neondb
+      POSTGRES_USER: neondb_owner
+      POSTGRES_PASSWORD: npg_QlqXho46CISy
       SERVER_PORT: 13000
       SPRING_PROFILES_ACTIVE: docker
       MONGO_URI: mongodb+srv://S13:mjtbAvnoBRS9MDAq@monolito.wrvc4cl.mongodb.net/monolito?retryWrites=true&w=majority&appName=monolito
