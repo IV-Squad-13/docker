@@ -17,6 +17,7 @@ FROM gcr.io/distroless/java21-debian12
 ARG SERVICE_NAME
 ARG PORT
 ENV SERVER_PORT=${PORT}
+COPY services/${SERVICE_NAME}/.env.properties .env.properties
 
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
