@@ -1,8 +1,9 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
+ARG SERVICE_NAME
 
-COPY pom.xml .
-COPY src ./src
+COPY services/${SERVICE_NAME}/pom.xml .
+COPY services/${SERVICE_NAME}/src ./src
 
 RUN mvn clean package -DskipTests
 
