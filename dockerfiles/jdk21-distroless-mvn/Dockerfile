@@ -1,34 +1,21 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 ARG SERVICE_NAME
-
-COPY services/${SERVICE_NAME}/pom.xml .
-COPY services/${SERVICE_NAME}/src ./src
-
+COPY ../services/${SERVICE_NAME}/pom.xml .
+COPY ../services/${SERVICE_NAME}/src ./src
+COPY ../services/${SERVICE_NAME}/.env.properties ./.env.properties
 RUN mvn clean package -DskipTests
 
-FROM gcr.io/distroless/java21-debian12:latest
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
-
 FROM gcr.io/distroless/java21-debian12
-
-ARG SERVICE_NAME
-ARG PORT
-ENV SERVER_PORT=${PORT}
-COPY services/${SERVICE_NAME}/.env.properties .env.properties
-
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-
+COPY --from=build /app/.env.properties .env.properties
+ENV SERVER_PORT=${PORT}
 EXPOSE ${PORT}
-
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # Execute na raiz do projeto
-# docker build -f docker/{service_folder_name}/Dockerfile -t {service_name} .
+# docker build -f docker/dockerfiles/jdk21-distroless-mvn/Dockerfile --build-arg SERVICE_NAME=api-monolito --build-arg PORT=13000 -t api-monolito .
 
 # Estrutura suposta
 # Raiz/
@@ -41,3 +28,5 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 # └── services/
 #     └── jdk21-service/
 #         └── src/
+#         └── pom.xml
+#         └── .env.properties
