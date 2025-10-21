@@ -49,8 +49,6 @@ services:
     #     SERVICE_NAME: api-monolito
     #     PORT: 13000
     container_name: monolito_api
-    depends_on:
-      - monolito_db
     ports:
       - "13000:13000"
     environment:
