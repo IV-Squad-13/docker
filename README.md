@@ -6,7 +6,7 @@
 
 - [Monolito](https://hub.docker.com/repository/docker/yuri000/api-monolito/tags/latest/sha256:7d29549c8ef3e44f1a9e6698b9ef92a9b382357faa681d4681cf0fd89a22aa97)
 ```
-docker pull yuri000/api-monolito:latest
+docker pull yuri000/monolito_api:latest
 ```
 
 - [Discovery](https://hub.docker.com/repository/docker/yuri000/squad-13/tags/discovery/sha256:d8c410a3c07b2ac50e071e49b8a239aa660da86315396efd0c5635c1b7824cd4)
