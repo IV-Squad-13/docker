@@ -41,12 +41,13 @@ services:
 
  
   monolito_api:
-    build:
-      context: ..
-      dockerfile: docker/dockerfiles/jdk21-distroless-mvn/Dockerfile
-      args:
-        SERVICE_NAME: api-monolito
-        PORT: 13000
+    image: yuri000/monolito_api:latest
+    # build:
+    #   context: ..
+    #   dockerfile: docker/dockerfiles/jdk21-distroless-mvn/Dockerfile
+    #   args:
+    #     SERVICE_NAME: api-monolito
+    #     PORT: 13000
     container_name: monolito_api
     depends_on:
       - monolito_db
