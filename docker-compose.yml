@@ -28,18 +28,18 @@ services:
   #   depends_on:
   #     - discovery
 
-#  client:
-#    build:
-#      context: ..
-#      dockerfile: docker/dockerfiles/react_vite_client/Dockerfile
-#      args:
-#        CLIENT_PATH: /front/FrontEnd-JotaNunes
-#    ports:
-#      - "13999:80"
-#    volumes:
-#      - ./logs/nginx-logs:/var/log/nginx
+  # TODO: Substituir build por image na branch build/image
+  client:
+    build:
+      context: ..
+      dockerfile: docker/dockerfiles/react_vite_client/Dockerfile
+      args:
+        CLIENT_PATH: /front/FrontEnd-JotaNunes
+    ports:
+      - "13999:80"
+    volumes:
+      - ./logs/nginx-logs:/var/log/nginx
 
- 
   monolito_api:
     image: yuri000/monolito_api:latest
     # build:
@@ -56,7 +56,6 @@ services:
       POSTGRES_USER: neondb_owner
       POSTGRES_PASSWORD: npg_QlqXho46CISy
       SERVER_PORT: 13000
-      SPRING_PROFILES_ACTIVE: docker
       MONGO_URI: mongodb+srv://S13:mjtbAvnoBRS9MDAq@monolito.wrvc4cl.mongodb.net/monolito?retryWrites=true&w=majority&appName=monolito
       ALLOWED_ORIGIN: "*"
       SECRET: secret-0000000000000000000000000000
@@ -88,7 +87,6 @@ services:
     volumes:
       - mongo_data:/data/db
 
-
   # rabbitmq:
   #   image: rabbitmq:latest
   #   ports:
@@ -100,33 +98,33 @@ services:
   #   volumes:
   #     - rabbitmq_data:/var/lib/rabbitmq
 
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    volumes:
-      - ./docker/prometheus:/etc/prometheus:ro
-    ports:
-      - "9090:9090"
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-    depends_on:
-      - monolito_db
+  # prometheus:
+  #   image: prom/prometheus
+  #   container_name: prometheus
+  #   volumes:
+  #     - ./docker/prometheus:/etc/prometheus:ro
+  #   ports:
+  #     - "9090:9090"
+  #   command:
+  #     - "--config.file=/etc/prometheus/prometheus.yml"
+  #   depends_on:
+  #     - monolito_db
 
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    volumes:
-      - grafana_data:/var/lib/grafana
-    depends_on:
-      - prometheus
+  # grafana:
+  #   image: grafana/grafana
+  #   container_name: grafana
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - GF_SECURITY_ADMIN_USER=admin
+  #     - GF_SECURITY_ADMIN_PASSWORD=admin
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #   depends_on:
+  #     - prometheus
 
 volumes:
   pg_data:
-  grafana_data:
+  # grafana_data:
   mongo_data:
   # rabbitmq_data:
