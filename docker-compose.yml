@@ -52,9 +52,9 @@ services:
     ports:
       - "13000:13000"
     environment:
-      POSTGRES_URL: jdbc:postgresql://ep-gentle-queen-acl8zuhb-pooler.sa-east-1.aws.neon.tech/neondb
-      POSTGRES_USER: neondb_owner
-      POSTGRES_PASSWORD: npg_QlqXho46CISy
+      POSTGRES_URL: jdbc:postgresql://136.112.152.217:5432/postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 4@OaOAPLv}v0(T1i
       SERVER_PORT: 13000
       MONGO_URI: mongodb+srv://S13:mjtbAvnoBRS9MDAq@monolito.wrvc4cl.mongodb.net/monolito?retryWrites=true&w=majority&appName=monolito
       ALLOWED_ORIGIN: "*"
