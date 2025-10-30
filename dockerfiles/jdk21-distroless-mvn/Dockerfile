@@ -3,13 +3,13 @@ WORKDIR /app
 ARG SERVICE_NAME
 COPY ../services/${SERVICE_NAME}/pom.xml .
 COPY ../services/${SERVICE_NAME}/src ./src
-COPY ../services/${SERVICE_NAME}/.env.properties ./.env.properties
+COPY ../services/${SERVICE_NAME}/.env.prod.properties ./.env.prod.properties
 RUN mvn clean package -DskipTests
 
 FROM gcr.io/distroless/java21-debian12
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-COPY --from=build /app/.env.properties .env.properties
+COPY --from=build /app/.env.prod.properties .env.prod.properties
 ENV SERVER_PORT=${PORT}
 EXPOSE ${PORT}
 ENTRYPOINT ["java", "-jar", "app.jar"]
