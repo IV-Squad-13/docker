@@ -1,19 +1,20 @@
-FROM maven:3.9-eclipse-temurin-21-alpine AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 ARG SERVICE_NAME
+ARG ENV_FILE
+
 COPY ../services/${SERVICE_NAME}/pom.xml .
-RUN mvn dependency:go-offline -B
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline -B
 
 COPY ../services/${SERVICE_NAME}/src ./src
-RUN mvn clean install -B
+COPY ../services/${SERVICE_NAME}/${ENV_FILE} ./${ENV_FILE}
 
-COPY ../services/${SERVICE_NAME}/.env.properties ./.env.properties
-RUN mvn clean package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 mvn clean package -DskipTests
 
 FROM gcr.io/distroless/java21-debian12
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-COPY --from=build /app/.env.properties .env.properties
+COPY --from=build /app/${ENV_FILE} ${ENV_FILE}
 ENV SERVER_PORT=${PORT}
 EXPOSE ${PORT}
 ENTRYPOINT ["java", "-jar", "app.jar"]
