@@ -52,11 +52,11 @@ services:
     ports:
       - "13000:13000"
     environment:
-      POSTGRES_URL: jdbc:postgresql://136.112.152.217:5432/postgres
+      POSTGRES_URL: jdbc:postgresql://monolito_db:5432/postgres
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 4@OaOAPLv}v0(T1i
+      POSTGRES_PASSWORD: postgres
       SERVER_PORT: 13000
-      MONGO_URI: mongodb+srv://S13:mjtbAvnoBRS9MDAq@monolito.wrvc4cl.mongodb.net/monolito?retryWrites=true&w=majority&appName=monolito
+      MONGO_URI: mongodb://admin:admin@mongo_db:27017/monolito?authSource=admin
       ALLOWED_ORIGIN: "*"
       SECRET: secret-0000000000000000000000000000
 
