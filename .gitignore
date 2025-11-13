@@ -1,0 +1,9 @@
+# Arquivos de ambiente com credenciais
+.env
+
+# Logs
+logs/
+*.log
+
+# Volumes persistentes locais
+volumes/
