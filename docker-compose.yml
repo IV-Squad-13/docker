@@ -1,0 +1,58 @@
+services:
+  monolito_api:
+    image: yuri000/monolito_api:latest
+    container_name: monolito_api
+    ports:
+      - "13000:13000"
+    environment:
+      POSTGRES_URL: jdbc:postgresql://monolito_db:5432/postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      SERVER_PORT: 13000
+      MONGO_URI: mongodb+srv://S13:mjtbAvnoBRS9MDAq@monolito.wrvc4cl.mongodb.net/monolito?retryWrites=true&w=majority&appName=monolito
+      ALLOWED_ORIGIN: "*"
+      SECRET: secret-0000000000000000000000000000
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: monolito_api
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=7200
+    depends_on:
+      - monolito_api
+
+  monolito_db:
+    image: postgres:16
+    container_name: monolito_db
+    restart: always
+    environment:
+      POSTGRES_DB: monolito
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: monolito
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  pg_data:
+  mongo_data:
