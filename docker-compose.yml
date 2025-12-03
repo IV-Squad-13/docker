@@ -5,12 +5,12 @@ services:
     ports:
       - "13000:13000"
     environment:
-      POSTGRES_URL: jdbc:postgresql://monolito_db:5432/postgres
+      POSTGRES_URL: jdbc:postgresql://monolito_db:5432/monolito
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       SERVER_PORT: 13000
       MONGO_URI: mongodb+srv://S13:mjtbAvnoBRS9MDAq@monolito.wrvc4cl.mongodb.net/monolito?retryWrites=true&w=majority&appName=monolito
-      ALLOWED_ORIGIN: "*"
+      ALLOWED_ORIGINS: "*"
       SECRET: secret-0000000000000000000000000000
 
   kurush_api:
