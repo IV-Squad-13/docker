@@ -6,3 +6,8 @@
 ```
 docker pull yuri000/monolito_api:latest
 ```
+
+- [Kurush](https://hub.docker.com/repository/docker/yuri000/kurush_api/general)
+```
+docker pull yuri000/kurush_api:latest
+```
